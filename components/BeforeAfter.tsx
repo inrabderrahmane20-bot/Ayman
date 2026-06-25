@@ -26,8 +26,8 @@ function Placeholder({
       className="absolute inset-0 flex items-end overflow-hidden"
       style={{
         background: after
-          ? `radial-gradient(120% 90% at 70% 10%, hsl(${42 + hue} 55% 22%) 0%, #0c0b09 62%)`
-          : `radial-gradient(120% 90% at 30% 10%, hsl(${220 + hue} 12% 24%) 0%, #0a0a0c 62%)`,
+          ? `radial-gradient(120% 90% at 70% 10%, hsl(${354 + hue} 62% 26%) 0%, #0c0808 62%)`
+          : `radial-gradient(120% 90% at 30% 10%, hsl(${220 + hue} 10% 22%) 0%, #0a0a0c 62%)`,
         filter: after ? 'none' : 'grayscale(0.5)',
       }}
     >
@@ -35,7 +35,7 @@ function Placeholder({
       <svg
         viewBox="0 0 200 320"
         className="absolute left-1/2 top-1/2 h-[78%] -translate-x-1/2 -translate-y-1/2"
-        style={{ color: after ? 'rgba(212,175,55,0.9)' : 'rgba(180,185,195,0.5)' }}
+        style={{ color: after ? 'rgba(239,68,76,0.92)' : 'rgba(180,185,195,0.5)' }}
         aria-hidden
       >
         <path
@@ -50,7 +50,7 @@ function Placeholder({
       </svg>
       <span
         className={`relative z-10 m-4 rounded-full px-3 py-1 font-sans text-[0.6rem] uppercase tracking-[0.22em] ${
-          after ? 'bg-gold text-ink' : 'bg-white/10 text-bone'
+          after ? 'bg-gold text-white' : 'bg-white/10 text-bone'
         }`}
       >
         {label}

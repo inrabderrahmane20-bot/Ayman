@@ -16,12 +16,12 @@ export default function PricingCards() {
             <div
               className={`relative flex h-full flex-col rounded-lg border p-7 transition-all duration-500 sm:p-8 ${
                 featured
-                  ? 'border-gold/40 bg-gradient-to-b from-gold/[0.07] to-transparent shadow-[0_30px_80px_-40px_rgba(212,175,55,0.5)] lg:scale-[1.04]'
+                  ? 'border-gold/40 bg-gradient-to-b from-gold/[0.07] to-transparent shadow-[0_30px_80px_-40px_rgba(225,29,42,0.5)] lg:scale-[1.04]'
                   : 'border-white/10 bg-white/[0.02] hover:border-white/20'
               }`}
             >
               {featured && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-gold-soft to-gold-deep px-4 py-1 font-sans text-[0.6rem] uppercase tracking-[0.2em] text-ink">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-gold-soft to-gold-deep px-4 py-1 font-sans text-[0.6rem] uppercase tracking-[0.2em] text-white">
                   Most Popular
                 </span>
               )}

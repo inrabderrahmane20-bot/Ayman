@@ -16,10 +16,10 @@ module.exports = {
           500: '#26262C',
         },
         gold: {
-          DEFAULT: '#D4AF37',
-          soft: '#E6CC7F',
-          deep: '#A9842B',
-          dim: '#8A6D24',
+          DEFAULT: '#E11D2A',
+          soft: '#FF5A64',
+          deep: '#9B1C24',
+          dim: '#7A151B',
         },
         bone: '#F5F3EF',
         stone: {

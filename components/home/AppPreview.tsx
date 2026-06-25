@@ -54,7 +54,7 @@ function PhoneMock() {
                   </div>
                   <span
                     className={`flex h-5 w-5 items-center justify-center rounded-full ${
-                      ex.done ? 'bg-gold text-ink' : 'border border-white/15 text-transparent'
+                      ex.done ? 'bg-gold text-white' : 'border border-white/15 text-transparent'
                     }`}
                   >
                     <Check width={12} height={12} />
@@ -63,7 +63,7 @@ function PhoneMock() {
               ))}
             </div>
 
-            <div className="mt-4 rounded-lg bg-gradient-to-r from-gold-soft to-gold-deep py-2.5 text-center font-sans text-[0.65rem] uppercase tracking-[0.18em] text-ink">
+            <div className="mt-4 rounded-lg bg-gradient-to-r from-gold-soft to-gold-deep py-2.5 text-center font-sans text-[0.65rem] uppercase tracking-[0.18em] text-white">
               Submit Check-in
             </div>
           </div>

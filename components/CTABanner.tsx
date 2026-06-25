@@ -19,7 +19,7 @@ export default function CTABanner({
         className="absolute inset-0 -z-10"
         style={{
           background:
-            'radial-gradient(60% 80% at 50% 0%, rgba(212,175,55,0.12) 0%, transparent 60%), #0b0b0e',
+            'radial-gradient(60% 80% at 50% 0%, rgba(225,29,42,0.13) 0%, transparent 60%), #0b0b0e',
         }}
       />
       <div className="container-luxe py-20 text-center sm:py-24">

@@ -9,7 +9,7 @@ export default function FinalCTA() {
         className="absolute inset-0 -z-10"
         style={{
           background:
-            'radial-gradient(70% 80% at 50% 0%, rgba(212,175,55,0.14) 0%, transparent 60%), #08080a',
+            'radial-gradient(70% 80% at 50% 0%, rgba(225,29,42,0.15) 0%, transparent 60%), #08080a',
         }}
       />
       <div className="absolute inset-0 -z-10 grid-overlay opacity-50" />

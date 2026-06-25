@@ -30,7 +30,7 @@ export default function StickyCTA() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"
-        className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full border border-gold/40 bg-ink-800/90 text-gold shadow-[0_10px_40px_-10px_rgba(212,175,55,0.5)] backdrop-blur transition-transform duration-300 hover:scale-105 sm:bottom-7 sm:right-7"
+        className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full border border-gold/40 bg-ink-800/90 text-gold shadow-[0_10px_40px_-10px_rgba(225,29,42,0.5)] backdrop-blur transition-transform duration-300 hover:scale-105 sm:bottom-7 sm:right-7"
       >
         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold/20" />
         <WhatsApp width={26} height={26} />

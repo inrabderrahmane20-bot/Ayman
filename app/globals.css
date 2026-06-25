@@ -18,9 +18,9 @@
     --text: #f5f3ef;
     --muted: #a8a29a;
     --dim: #6e6a63;
-    --gold: #d4af37;
-    --gold-soft: #e6cc7f;
-    --gold-deep: #a9842b;
+    --gold: #e11d2a;
+    --gold-soft: #ff5a64;
+    --gold-deep: #9b1c24;
   }
 
   * {
@@ -41,7 +41,7 @@
   }
 
   ::selection {
-    background: rgba(212, 175, 55, 0.25);
+    background: rgba(225, 29, 42, 0.28);
     color: #fff;
   }
 
@@ -131,7 +131,7 @@
   }
 
   .gold-gradient {
-    background: linear-gradient(105deg, #b8912f 0%, #f4dd96 42%, #d4af37 70%, #a9842b 100%);
+    background: linear-gradient(105deg, #9b1c24 0%, #ff7a82 40%, #e11d2a 70%, #9b1c24 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -171,13 +171,13 @@
   }
 
   .btn-gold {
-    background: linear-gradient(135deg, #e6cc7f, #d4af37 55%, #a9842b);
-    color: #1a1408;
-    box-shadow: 0 10px 40px -12px rgba(212, 175, 55, 0.55);
+    background: linear-gradient(135deg, #ff3a47, #e11d2a 55%, #9b1c24);
+    color: #fff;
+    box-shadow: 0 10px 40px -12px rgba(225, 29, 42, 0.55);
   }
   .btn-gold:hover {
     transform: translateY(-3px);
-    box-shadow: 0 20px 55px -14px rgba(212, 175, 55, 0.7);
+    box-shadow: 0 20px 55px -14px rgba(225, 29, 42, 0.7);
   }
 
   .btn-outline {
@@ -212,9 +212,9 @@
   }
   .card-hover:hover {
     transform: translateY(-6px);
-    border-color: rgba(212, 175, 55, 0.32);
+    border-color: rgba(225, 29, 42, 0.34);
     box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.8),
-      0 0 0 1px rgba(212, 175, 55, 0.06);
+      0 0 0 1px rgba(225, 29, 42, 0.08);
   }
 
   .glass {
@@ -241,7 +241,7 @@
   }
 
   .glow-gold {
-    background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.16) 0%, transparent 68%);
+    background: radial-gradient(ellipse at center, rgba(225, 29, 42, 0.18) 0%, transparent 68%);
     filter: blur(30px);
   }
 
