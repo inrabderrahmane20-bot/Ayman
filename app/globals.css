@@ -1,0 +1,309 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ════════════════════════════════════════════════════════════════
+   AYMAN COACHING — Luxury Design System
+   Dark · Charcoal · Gold · Editorial serif + geometric sans
+   ════════════════════════════════════════════════════════════════ */
+
+@layer base {
+  :root {
+    --bg: #08080a;
+    --bg-2: #0b0b0e;
+    --surface: #101013;
+    --surface-2: #16161a;
+    --border: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.16);
+    --text: #f5f3ef;
+    --muted: #a8a29a;
+    --dim: #6e6a63;
+    --gold: #d4af37;
+    --gold-soft: #e6cc7f;
+    --gold-deep: #a9842b;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: rgba(212, 175, 55, 0.25);
+    color: #fff;
+  }
+
+  ::-webkit-scrollbar {
+    width: 9px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2a2a30;
+    border-radius: 99px;
+    border: 2px solid var(--bg);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--gold-deep);
+  }
+
+  ::placeholder {
+    color: var(--dim);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-bodoni), 'Bodoni Moda', 'Didot', serif;
+    font-weight: 500;
+  }
+}
+
+@layer components {
+  /* ── Layout ─────────────────────────────────────────── */
+  .container-luxe {
+    width: 100%;
+    max-width: 1240px;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 5vw, 2.5rem);
+  }
+
+  .section {
+    padding-block: clamp(4.5rem, 11vw, 9rem);
+  }
+
+  /* ── Typographic helpers ────────────────────────────── */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-family: var(--font-jost);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+  }
+  .eyebrow::before {
+    content: '';
+    width: 26px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold));
+  }
+  .eyebrow.centered::after {
+    content: '';
+    width: 26px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+
+  .display {
+    font-family: var(--font-bodoni), 'Bodoni Moda', serif;
+    line-height: 0.98;
+    letter-spacing: -0.01em;
+  }
+
+  .text-gold {
+    color: var(--gold);
+  }
+  .text-muted {
+    color: var(--muted);
+  }
+  .text-dim {
+    color: var(--dim);
+  }
+
+  .gold-gradient {
+    background: linear-gradient(105deg, #b8912f 0%, #f4dd96 42%, #d4af37 70%, #a9842b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .gold-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-deep), transparent);
+  }
+
+  /* ── Buttons ────────────────────────────────────────── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    font-family: var(--font-jost);
+    font-weight: 500;
+    font-size: 0.82rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 2px;
+    padding: 1.05rem 2.1rem;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+      background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+    will-change: transform;
+  }
+  .btn svg {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .btn:hover svg {
+    transform: translateX(4px);
+  }
+
+  .btn-gold {
+    background: linear-gradient(135deg, #e6cc7f, #d4af37 55%, #a9842b);
+    color: #1a1408;
+    box-shadow: 0 10px 40px -12px rgba(212, 175, 55, 0.55);
+  }
+  .btn-gold:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 55px -14px rgba(212, 175, 55, 0.7);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border-strong);
+  }
+  .btn-outline:hover {
+    border-color: var(--gold);
+    color: var(--gold-soft);
+    transform: translateY(-3px);
+  }
+
+  .btn-ghost {
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+  }
+  .btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-3px);
+  }
+
+  /* ── Surfaces ───────────────────────────────────────── */
+  .card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.012));
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.45s ease, box-shadow 0.6s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-6px);
+    border-color: rgba(212, 175, 55, 0.32);
+    box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.8),
+      0 0 0 1px rgba(212, 175, 55, 0.06);
+  }
+
+  .glass {
+    background: rgba(16, 16, 19, 0.55);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid var(--border);
+  }
+
+  .hairline {
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── Decorative ─────────────────────────────────────── */
+  .grid-overlay {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+    background-size: 72px 72px;
+  }
+
+  .noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .glow-gold {
+    background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.16) 0%, transparent 68%);
+    filter: blur(30px);
+  }
+
+  /* ── Tabular numerals for stats / prices ────────────── */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-jost);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0.4rem 0.85rem;
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .link-underline {
+    position: relative;
+  }
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 1px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .link-underline:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+/* ── Marquee ──────────────────────────────────────────── */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+
+/* ── Reduced motion ───────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .marquee-track {
+    animation: none;
+  }
+}
