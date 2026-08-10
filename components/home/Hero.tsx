@@ -55,19 +55,8 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.08, ease }}
             className="display mt-6 text-[3rem] leading-[0.96] sm:text-[4rem] lg:text-[5rem]"
           >
-            Your Body Can Change <span className="gold-gradient italic">Faster</span> Than You
-            Think.
+            My goal isn't just to transform your body, but to transform <span className="gold-gradient italic">your mindset,</span> so you can face every challenge with confidence and strength.
           </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.16, ease }}
-            className="mt-6 max-w-xl text-base leading-relaxed text-bone/80 sm:text-lg"
-          >
-            Personalized training, nutrition, accountability and coaching designed specifically
-            around your goals, lifestyle, schedule and body.
-          </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 22 }}
