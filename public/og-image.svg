@@ -1,0 +1,26 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#0b0e12"/>
+      <stop offset="100%" stop-color="#181d2a"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" x2="100%" y1="0%" y2="0%">
+      <stop offset="0%" stop-color="#d7b56d"/>
+      <stop offset="100%" stop-color="#f1dfb0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="50" y="50" width="1100" height="530" rx="28" fill="rgba(12,15,21,0.54)" stroke="rgba(215,181,109,0.5)"/>
+  <g transform="translate(90 90)">
+    <circle cx="28" cy="28" r="28" fill="none" stroke="url(#gold)" stroke-width="2"/>
+    <text x="28" y="38" text-anchor="middle" font-size="28" font-weight="700" fill="url(#gold)" font-family="Georgia, serif">A</text>
+    <text x="86" y="34" font-size="26" letter-spacing="4" fill="url(#gold)" font-family="Arial, Helvetica, sans-serif">COACH AYMAN</text>
+  </g>
+  <text x="90" y="275" font-size="68" font-weight="700" fill="#f5f1e8" font-family="Arial, Helvetica, sans-serif">Online Fitness</text>
+  <text x="90" y="350" font-size="68" font-weight="700" fill="#f5f1e8" font-family="Arial, Helvetica, sans-serif">&amp; Nutrition Coaching</text>
+  <text x="90" y="430" font-size="28" fill="rgba(245,241,232,0.8)" font-family="Arial, Helvetica, sans-serif">Custom training, nutrition and accountability for fat loss, muscle gain and body recomposition.</text>
+  <g transform="translate(90 470)">
+    <circle cx="11" cy="11" r="11" fill="url(#gold)"/>
+    <text x="38" y="18" font-size="24" fill="url(#gold)" font-family="Arial, Helvetica, sans-serif">coachayman.com</text>
+  </g>
+</svg>

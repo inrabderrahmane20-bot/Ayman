@@ -5,8 +5,10 @@ import { motion } from 'framer-motion';
 import { coach } from '../lib/content';
 import { Check, Arrow } from './Icons';
 
+const subjectOptions = ['Coaching question', 'Pricing', 'Partnership', 'Other'];
+
 export default function ContactForm() {
-  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
+  const [form, setForm] = useState({ name: '', email: '', subject: subjectOptions[0], message: '' });
   const [sent, setSent] = useState(false);
 
   const valid =
@@ -18,7 +20,6 @@ export default function ContactForm() {
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!valid) return;
-    // Open the user's mail client with a prefilled message (no backend required).
     const body = encodeURIComponent(`${form.message}\n\n— ${form.name} (${form.email})`);
     const subject = encodeURIComponent(form.subject || 'Coaching enquiry');
     window.location.href = `mailto:${coach.email}?subject=${subject}&body=${body}`;
@@ -75,12 +76,17 @@ export default function ContactForm() {
         </label>
         <label className="block sm:col-span-2">
           <span className="mb-1.5 block text-xs uppercase tracking-[0.16em] text-dim">Subject</span>
-          <input
+          <select
             value={form.subject}
             onChange={(e) => setForm({ ...form, subject: e.target.value })}
             className={field}
-            placeholder="What's this about?"
-          />
+          >
+            {subjectOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
         </label>
         <label className="block sm:col-span-2">
           <span className="mb-1.5 block text-xs uppercase tracking-[0.16em] text-dim">

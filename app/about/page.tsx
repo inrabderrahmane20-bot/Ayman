@@ -9,9 +9,12 @@ import { Shield, Globe, Check } from '../../components/Icons';
 import AnimatedCounter from '../../components/AnimatedCounter';
 
 export const metadata: Metadata = {
-  title: 'About',
+  title: 'About Coach Ayman Yakhmim | Online Fitness Coach',
   description:
-    'Meet Coach Mohamed Ayman Yakhmim — Exercise Science-trained online coach with 220+ client transformations across nutrition, training and accountability.',
+    'Exercise science-trained online coach helping 220+ clients lose fat and build muscle with personalized training and nutrition.',
+  alternates: {
+    canonical: '/about',
+  },
 };
 
 export default function AboutPage() {

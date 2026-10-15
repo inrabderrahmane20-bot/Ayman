@@ -7,6 +7,15 @@ import CTABanner from '../../components/CTABanner';
 import Reveal, { Stagger } from '../../components/Reveal';
 import { Check, Close } from '../../components/Icons';
 
+export const metadata: Metadata = {
+  title: 'Online Coaching Pricing & Plans | Coach Ayman',
+  description:
+    'Transparent monthly plans from €99. No lock-in, cancel anytime. Compare nutrition, training + nutrition and VIP.',
+  alternates: {
+    canonical: '/pricing',
+  },
+};
+
 const compareRows: { label: string; nutrition: boolean; training: boolean; vip: boolean }[] = [
   { label: 'Custom nutrition plan', nutrition: true, training: true, vip: true },
   { label: 'Macro & calorie targets', nutrition: true, training: true, vip: true },
@@ -23,9 +32,15 @@ const compareRows: { label: string; nutrition: boolean; training: boolean; vip: 
 
 function Cell({ on }: { on: boolean }) {
   return on ? (
-    <Check width={18} height={18} className="mx-auto text-gold" />
+    <>
+      <span className="sr-only">Included</span>
+      <Check width={18} height={18} className="mx-auto text-gold" aria-hidden="true" />
+    </>
   ) : (
-    <Close width={16} height={16} className="mx-auto text-white/15" />
+    <>
+      <span className="sr-only">Not included</span>
+      <Close width={16} height={16} className="mx-auto text-white/15" aria-hidden="true" />
+    </>
   );
 }
 
@@ -50,7 +65,7 @@ export default function PricingPage() {
           </Stagger>
           <Reveal delay={0.1}>
             <p className="mt-10 text-center text-sm text-dim">
-              All plans are billed monthly · Secure checkout · 100% commitment to your results
+              All plans are billed monthly · Cancel anytime · Personalized coaching built around your schedule
             </p>
           </Reveal>
         </div>

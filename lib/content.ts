@@ -8,7 +8,7 @@ export const coach = {
   shortName: 'Coach Ayman',
   title: 'Online Coach',
   tagline: 'Exercise Science · Nutrition · Transformation',
-  email: 'aymanyakhmim1@gmail.com',
+  email: 'hello@coachayman.com',
   phone: '+212 707072662',
   phoneHref: 'tel:+212707072662',
   whatsapp: 'https://wa.me/212707072662',
@@ -16,9 +16,9 @@ export const coach = {
   languages: ['English', 'Arabic', 'French'],
   photo: '/hero.jpg',
   socials: {
-    instagram: 'https://instagram.com',
-    tiktok: 'https://tiktok.com',
-    youtube: 'https://youtube.com',
+    instagram: 'https://instagram.com/coachayman',
+    tiktok: 'https://www.tiktok.com/@coachayman',
+    youtube: 'https://www.youtube.com/@coachayman',
   },
   /* Verbatim brand copy preserved from the coach profile */
   about:
@@ -26,16 +26,16 @@ export const coach = {
   experience:
     "My success as an online coach is rooted in a client-centric approach. I understand that each individual is unique, and I take pride in crafting personalized training programs and nutrition guidance to meet diverse goals. Through virtual sessions and constant communication, I've fostered a collaborative and empowering environment — resulting in the satisfaction of more than 220 clients.",
   nutritionPhilosophy:
-    "I specialize in crafting personalized meal plans that cater to the unique needs and preferences of each family member. Through virtual consultations, I collaborate with families to design weekly meal plans that are not only nutritionally sound but also practical and enjoyable. By emphasizing balance and variety, I empower people to adopt healthier eating habits that last.",
+    'I design personalized nutrition strategies around each client’s goals, schedule, food preferences and training demands so the plan is realistic, sustainable and built to last beyond the scale.',
   skills: [
     'Online Coaching',
     'Program Design',
     'Client Motivation',
     'Nutrition Guidance',
-    'Communication',
-    'Time Management',
-    'Goal Setting',
-    'Social Media Marketing',
+    'Fat Loss',
+    'Muscle Gain',
+    'Body Recomposition',
+    'Habit Coaching',
   ],
   certifications: [
     {
@@ -281,23 +281,6 @@ export const plans: Plan[] = [
     ],
   },
   {
-    id: 'transformation',
-    name: 'VIP Transformation',
-    tagline: 'The complete done-for-you coaching experience.',
-    price: '$249',
-    period: '/ month',
-    featured: true,
-    cta: 'Apply for VIP',
-    features: [
-      'Everything in Training + Nutrition',
-      'Priority direct line to Coach Ayman',
-      'Weekly 1-on-1 video coaching calls',
-      'Form-check video reviews',
-      'Habit & lifestyle coaching',
-      'Quarterly plan re-engineering',
-    ],
-  },
-  {
     id: 'training',
     name: 'Training + Nutrition',
     tagline: 'The full system: train smart, eat right, stay accountable.',
@@ -312,6 +295,23 @@ export const plans: Plan[] = [
       'Weekly accountability check-ins',
       'Direct messaging support',
       'Members app access',
+    ],
+  },
+  {
+    id: 'vip',
+    name: 'VIP Transformation',
+    tagline: 'The complete done-for-you coaching experience.',
+    price: '$249',
+    period: '/ month',
+    featured: true,
+    cta: 'Apply for VIP',
+    features: [
+      'Everything in Training + Nutrition',
+      'Priority direct line to Coach Ayman',
+      'Weekly 1-on-1 video coaching calls',
+      'Form-check video reviews',
+      'Habit & lifestyle coaching',
+      'Quarterly plan re-engineering',
     ],
   },
 ];

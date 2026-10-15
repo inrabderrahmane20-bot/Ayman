@@ -9,15 +9,12 @@ import { Menu, Close, Arrow } from './Icons';
 
 function Wordmark() {
   return (
-    <Link href="/" aria-label="Ayman Coaching — home" className="group flex items-center gap-3">
+    <Link href="/" aria-label="Coach Ayman — home" className="group flex items-center gap-3">
       <span className="flex h-9 w-9 items-center justify-center rounded-full border border-gold/40 text-gold transition-colors duration-500 group-hover:border-gold">
         <span className="font-display text-lg leading-none">A</span>
       </span>
       <span className="flex flex-col leading-none">
-        <span className="font-display text-base tracking-wide text-bone">AYMAN</span>
-        <span className="font-sans text-[0.55rem] uppercase tracking-[0.34em] text-gold/80">
-          Coaching
-        </span>
+        <span className="font-display text-base tracking-wide text-bone">Coach Ayman</span>
       </span>
     </Link>
   );

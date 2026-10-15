@@ -15,8 +15,11 @@ import {
 } from '../../components/Icons';
 
 export const metadata: Metadata = {
-  title: 'Contact',
-  description: `Get in touch with Coach ${coach.name}. Email, phone, WhatsApp — or apply directly for coaching.`,
+  title: 'Contact Coach Ayman | Online Coaching Questions',
+  description: 'Questions about coaching? Message by email, phone or WhatsApp.',
+  alternates: {
+    canonical: '/contact',
+  },
 };
 
 const details = [

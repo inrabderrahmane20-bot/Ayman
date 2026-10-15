@@ -8,9 +8,12 @@ import AppPreview from '../../components/home/AppPreview';
 import { Check, iconMap } from '../../components/Icons';
 
 export const metadata: Metadata = {
-  title: 'Coaching',
+  title: 'Online Coaching Program: Training + Nutrition',
   description:
-    'Inside the coaching experience — custom training, custom nutrition, weekly accountability and private support. Plus a free macro calculator.',
+    'See exactly what’s included: custom training, nutrition plan, weekly check-ins and private support, plus a free macro calculator.',
+  alternates: {
+    canonical: '/coaching',
+  },
 };
 
 export default function CoachingPage() {

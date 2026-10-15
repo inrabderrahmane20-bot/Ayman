@@ -24,10 +24,7 @@ export default function Footer() {
                 A
               </span>
               <div className="leading-none">
-                <p className="font-display text-lg tracking-wide text-bone">AYMAN</p>
-                <p className="font-sans text-[0.55rem] uppercase tracking-[0.34em] text-gold/80">
-                  Coaching
-                </p>
+                <p className="font-display text-lg tracking-wide text-bone">Coach Ayman</p>
               </div>
             </div>
             <p className="mt-6 max-w-xs text-sm leading-relaxed text-muted">
@@ -72,17 +69,17 @@ export default function Footer() {
             <p className="font-sans text-[0.7rem] uppercase tracking-[0.22em] text-dim">Coaching</p>
             <ul className="mt-5 space-y-3">
               <li>
-                <Link href="/pricing" className="text-sm text-muted transition-colors hover:text-gold">
+                <Link href="/pricing#nutrition" className="text-sm text-muted transition-colors hover:text-gold">
                   Nutrition Only
                 </Link>
               </li>
               <li>
-                <Link href="/pricing" className="text-sm text-muted transition-colors hover:text-gold">
+                <Link href="/pricing#training" className="text-sm text-muted transition-colors hover:text-gold">
                   Training + Nutrition
                 </Link>
               </li>
               <li>
-                <Link href="/pricing" className="text-sm text-muted transition-colors hover:text-gold">
+                <Link href="/pricing#vip" className="text-sm text-muted transition-colors hover:text-gold">
                   VIP Transformation
                 </Link>
               </li>

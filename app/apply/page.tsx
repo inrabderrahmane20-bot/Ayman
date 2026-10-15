@@ -4,9 +4,11 @@ import Reveal from '../../components/Reveal';
 import { Check } from '../../components/Icons';
 
 export const metadata: Metadata = {
-  title: 'Apply for Coaching',
-  description:
-    'Apply for elite online coaching with Coach Mohamed Ayman Yakhmim. Take the 60-second assessment and claim your spot.',
+  title: 'Apply for Online Coaching | Coach Ayman',
+  description: 'Take the 60-second assessment. Personally reviewed, reply within 24 hours.',
+  alternates: {
+    canonical: '/apply',
+  },
 };
 
 const reassurance = [

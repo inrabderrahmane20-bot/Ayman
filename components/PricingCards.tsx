@@ -4,7 +4,6 @@ import { Check, Arrow } from './Icons';
 import { StaggerItem } from './Reveal';
 
 export default function PricingCards() {
-  // Order so the featured VIP plan sits in the middle on desktop.
   const ordered = [plans[0], plans[1], plans[2]];
 
   return (
@@ -14,6 +13,7 @@ export default function PricingCards() {
         return (
           <StaggerItem key={plan.id}>
             <div
+              id={plan.id}
               className={`relative flex h-full flex-col rounded-lg border p-7 transition-all duration-500 sm:p-8 ${
                 featured
                   ? 'border-gold/40 bg-gradient-to-b from-gold/[0.07] to-transparent shadow-[0_30px_80px_-40px_rgba(225,29,42,0.5)] lg:scale-[1.04]'

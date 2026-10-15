@@ -23,39 +23,35 @@ const jost = Jost({
   display: 'swap',
 });
 
-const SITE_URL = 'https://ayman-coaching.vercel.app';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://coachayman.com';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${coach.name} — Elite Online Transformation Coach`,
-    template: `%s · ${coach.shortName}`,
+    default: 'Online Fitness & Nutrition Coach | Coach Ayman',
+    template: '%s | Coach Ayman',
   },
   description:
-    'Personalized training, nutrition, and accountability coaching engineered around your goals, lifestyle and schedule. Join 220+ transformed clients.',
-  keywords: [
-    'online coaching',
-    'fitness transformation',
-    'personal trainer',
-    'nutrition coaching',
-    'fat loss',
-    'muscle gain',
-    'Mohamed Ayman Yakhmim',
-  ],
+    'Custom training, nutrition and weekly accountability for fat loss and muscle gain. Online coaching built around your schedule. Apply in 60 seconds.',
   authors: [{ name: coach.name }],
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
-    title: `${coach.name} — Elite Online Transformation Coach`,
+    title: 'Online Fitness & Nutrition Coach | Coach Ayman',
     description:
-      'Personalized training, nutrition, and accountability coaching built around your life. 220+ clients transformed.',
+      'Custom training, nutrition and weekly accountability for fat loss and muscle gain. Online coaching built around your schedule.',
     type: 'website',
     url: SITE_URL,
-    images: ['/hero.jpg'],
+    siteName: 'Coach Ayman',
+    images: [{ url: '/og-image.svg', width: 1200, height: 630, alt: 'Coach Ayman' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${coach.name} — Elite Online Transformation Coach`,
-    description: 'Personalized coaching built around your life. 220+ clients transformed.',
-    images: ['/hero.jpg'],
+    title: 'Online Fitness & Nutrition Coach | Coach Ayman',
+    description:
+      'Custom training, nutrition and weekly accountability for fat loss and muscle gain. Online coaching built around your schedule.',
+    images: ['/og-image.svg'],
   },
 };
 

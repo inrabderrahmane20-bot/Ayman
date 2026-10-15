@@ -46,7 +46,7 @@ export default function Hero() {
             className="chip border-gold/40 !text-gold-soft"
           >
             <span className="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-gold" />
-            Elite Online Transformation Coaching
+            Online fitness coaching for fat loss, muscle gain and strength
           </motion.span>
 
           <motion.h1
@@ -55,8 +55,17 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.08, ease }}
             className="display mt-6 text-[3rem] leading-[0.96] sm:text-[4rem] lg:text-[5rem]"
           >
-            My goal isn't just to transform your body, but to transform <span className="gold-gradient italic">your mindset,</span> so you can face every challenge with confidence and strength.
+            Online Fitness &amp; Nutrition Coaching for <span className="gold-gradient italic">Fat Loss</span> and <span className="gold-gradient italic">Muscle Gain</span>
           </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.16, ease }}
+            className="mt-5 max-w-xl text-base text-bone/80 sm:text-lg"
+          >
+            “My goal isn’t just to transform your body, but to transform your mindset so you can face every challenge with confidence and strength.”
+          </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 22 }}
@@ -65,11 +74,11 @@ export default function Hero() {
             className="mt-9 flex flex-wrap gap-4"
           >
             <Link href="/apply" className="btn btn-gold">
-              Start My Transformation
+              Apply for Coaching
               <Arrow width={16} height={16} />
             </Link>
             <Link href="/transformations" className="btn btn-outline">
-              View Client Results
+              See Client Results
             </Link>
           </motion.div>
 
@@ -79,16 +88,6 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.4, ease }}
             className="mt-10 flex items-center gap-5"
           >
-            <div className="flex -space-x-3">
-              {[0, 1, 2, 3].map((i) => (
-                <span
-                  key={i}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-ink bg-gradient-to-br from-ink-600 to-ink-800 font-display text-sm text-gold"
-                >
-                  {['Y', 'S', 'O', 'I'][i]}
-                </span>
-              ))}
-            </div>
             <div>
               <div className="flex gap-0.5 text-gold">
                 {[0, 1, 2, 3, 4].map((i) => (
