@@ -275,5 +275,5 @@ Do not force-push production history. Do not delete lead data as part of a code 
 |---|---|---|---|---|---|
 | 2026-10-26 | Local production (`localhost:3000`) | Passed, 54 routes | 46/46 | 9/9 | Pre-deployment verification |
 | 2026-10-26 | Local production (`localhost:3000`) | Passed after 404 fix | 46/46 | 9/9 | Localized 404 fixed; 88-URL crawl clean; Lighthouse `/en`, `/fr`, `/ar` recorded above |
-| 2026-10-26 | Production `ayman-nu.vercel.app` | Not deployed | Not run | Not run | Old deployment still live; rebuild pending commit/deploy |
+| 2026-10-26 | Production `ayman-nu.vercel.app` | Not deployed | Not run | Not run | Old deployment still live; release commit `65bfad7` is ready. Vercel CLI is logged out and the repo is not linked locally, so deployment needs the owner's Vercel login. |
 

@@ -123,7 +123,7 @@ These items are **not** quietly marked done. They require external evidence.
 | Personal protection publication | Licensing, insurance, staffing, operations and local counsel unverified | Close gates G0–G9 in `docs/PROTECTION-SERVICE.md` | Coach + counsel |
 | Final canonical domain | Owner has not confirmed a production domain | Confirm domain; set `NEXT_PUBLIC_SITE_URL`; redeploy | Coach |
 | Durable rate limiting | In-memory limiter is per serverless instance | Add Vercel Firewall, Upstash/Redis or edge limiter | Developer |
-| Production deployment of this rebuild | Working tree is not yet committed/deployed | Commit, push, deploy, rerun checks | Developer |
+| Production deployment of this rebuild | Committed as `65bfad7`; Vercel CLI is logged out and no project link exists locally | Log in to Vercel, link the project, deploy, rerun checks | Developer + Coach |
 | Legal review of privacy/terms/cookies | No lawyer or entity details supplied | Local adviser review | Coach |
 
 ---
