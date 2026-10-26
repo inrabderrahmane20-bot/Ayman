@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { notFound } from 'next/navigation';
-import { Bodoni_Moda, Jost, Noto_Kufi_Arabic } from 'next/font/google';
+import localFont from 'next/font/local';
 import '../globals.css';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
@@ -14,29 +14,31 @@ import { nav } from '../../lib/content/common';
 import { SITE, OG_IMAGE } from '../../lib/site';
 import { organizationSchema, personSchema, websiteSchema } from '../../lib/seo';
 
-const bodoni = Bodoni_Moda({
-  subsets: ['latin'],
-  weight: ['400', '500', '600'],
+const bodoni = localFont({
+  src: '../fonts/bodoni-moda-latin.woff2',
+  weight: '400 600',
   variable: '--font-bodoni',
   display: 'swap',
   preload: true,
   fallback: ['Didot', 'Georgia', 'serif'],
+  adjustFontFallback: false,
 });
 
-const jost = Jost({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+const jost = localFont({
+  src: '../fonts/jost-latin.woff2',
+  weight: '300 700',
   variable: '--font-jost',
   display: 'swap',
   preload: true,
 });
 
-const arabic = Noto_Kufi_Arabic({
-  subsets: ['arabic'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-arabic',
+const arabic = localFont({
+  src: '../fonts/noto-kufi-arabic-arabic.woff2',
+  weight: '400 700',
+  variable: '--font-arabic-family',
   display: 'swap',
   preload: false,
+  fallback: ['Noto Kufi Arabic', 'Segoe UI', 'sans-serif'],
 });
 
 export const viewport: Viewport = {

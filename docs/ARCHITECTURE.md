@@ -11,7 +11,7 @@
 | UI | React 18 + TypeScript (strict) | Existing stack; no reason to migrate |
 | Styling | Tailwind 3 + CSS custom properties | Preserves the established design language without a new dependency |
 | Motion | CSS only (`Reveal`, transitions, `prefers-reduced-motion`) | Removes `framer-motion` from the client bundle |
-| Fonts | `next/font/google`: Bodoni Moda, Jost, Noto Kufi Arabic | Self-hosted at build time, no layout shift or third-party font request |
+| Fonts | `next/font/local`: Bodoni Moda, Jost, Noto Kufi Arabic in `app/fonts/` | No build-time Google Fonts request; builds work when fonts.gstatic.com is unreachable, and there is no third-party runtime request |
 | Hosting | Vercel | Existing production host |
 | Data store | None | The scope needs lead delivery, not a CRM |
 | Email | Resend **or** webhook, both optional | Owner can enable delivery without a database |

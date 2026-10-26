@@ -27,7 +27,7 @@
     --warning: #f0c674;
     --font-body: var(--font-jost), 'Jost', 'Segoe UI', sans-serif;
     --font-display: var(--font-bodoni), 'Bodoni Moda', Didot, Georgia, serif;
-    --font-arabic: var(--font-arabic), 'Noto Kufi Arabic', 'Segoe UI', sans-serif;
+    --font-arabic: var(--font-arabic-family);
   }
 
   * {
