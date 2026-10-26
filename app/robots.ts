@@ -1,13 +1,26 @@
 import type { MetadataRoute } from 'next';
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://coachayman.com';
+import { SITE } from '../lib/site';
 
 export default function robots(): MetadataRoute.Robots {
+  const preview = process.env.VERCEL_ENV === 'preview' || process.env.VERCEL_ENV === 'development';
+
+  if (preview) {
+    return {
+      rules: { userAgent: '*', disallow: '/' },
+      sitemap: `${SITE.url}/sitemap.xml`,
+      host: SITE.url,
+    };
+  }
+
   return {
-    rules: {
-      userAgent: '*',
-      allow: '/',
-    },
-    sitemap: `${siteUrl}/sitemap.xml`,
+    rules: [
+      {
+        userAgent: '*',
+        allow: '/',
+        disallow: ['/api/'],
+      },
+    ],
+    sitemap: `${SITE.url}/sitemap.xml`,
+    host: SITE.url,
   };
 }

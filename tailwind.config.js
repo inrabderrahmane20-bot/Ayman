@@ -1,8 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -17,27 +17,33 @@ module.exports = {
         },
         gold: {
           DEFAULT: '#E11D2A',
-          soft: '#FF5A64',
+          soft: '#FF6B73',
           deep: '#9B1C24',
           dim: '#7A151B',
         },
+        accent: {
+          DEFAULT: '#E11D2A',
+          soft: '#FF6B73',
+          deep: '#9B1C24',
+        },
         bone: '#F5F3EF',
         stone: {
-          muted: '#A8A29A',
-          dim: '#6E6A63',
+          muted: '#C2BCB3',
+          dim: '#9A948B',
         },
       },
       fontFamily: {
-        display: ['var(--font-bodoni)', 'Bodoni Moda', 'Didot', 'serif'],
-        sans: ['var(--font-jost)', 'Jost', 'Inter', 'sans-serif'],
+        display: ['var(--font-bodoni)', 'Bodoni Moda', 'Didot', 'Georgia', 'serif'],
+        sans: ['var(--font-jost)', 'Jost', 'Segoe UI', 'sans-serif'],
+        arabic: ['var(--font-arabic)', 'Noto Kufi Arabic', 'Segoe UI', 'sans-serif'],
       },
       maxWidth: {
         container: '1240px',
         '8xl': '88rem',
       },
       letterSpacing: {
-        luxe: '0.28em',
-        wide2: '0.18em',
+        luxe: '0.24em',
+        wide2: '0.16em',
       },
       transitionTimingFunction: {
         luxe: 'cubic-bezier(0.22, 1, 0.36, 1)',
@@ -45,26 +51,16 @@ module.exports = {
       keyframes: {
         'pulse-dot': {
           '0%,100%': { opacity: '1', transform: 'scale(1)' },
-          '50%': { opacity: '0.35', transform: 'scale(0.7)' },
-        },
-        shimmer: {
-          '0%': { backgroundPosition: '-200% center' },
-          '100%': { backgroundPosition: '200% center' },
+          '50%': { opacity: '0.45', transform: 'scale(0.72)' },
         },
         marquee: {
           '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(-50%)' },
         },
-        floaty: {
-          '0%,100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-12px)' },
-        },
       },
       animation: {
         'pulse-dot': 'pulse-dot 1.8s ease-in-out infinite',
-        shimmer: 'shimmer 6s linear infinite',
-        marquee: 'marquee 32s linear infinite',
-        floaty: 'floaty 6s ease-in-out infinite',
+        marquee: 'marquee 34s linear infinite',
       },
     },
   },

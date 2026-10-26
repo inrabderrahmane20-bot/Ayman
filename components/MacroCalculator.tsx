@@ -1,195 +1,253 @@
 'use client';
 
-import { useMemo, useState } from 'react';
 import Link from 'next/link';
+import { useState } from 'react';
+import type { Locale } from '../lib/content/types';
+import { calculator, forms } from '../lib/content/forms';
+import { localePath } from '../lib/routes';
+import { track } from '../lib/analytics';
 import { Arrow } from './Icons';
 
-type Sex = 'male' | 'female';
-type Goal = 'cut' | 'maintain' | 'gain';
-type Activity = 1.2 | 1.375 | 1.55 | 1.725;
-
-const activityLabels: { value: Activity; label: string }[] = [
-  { value: 1.2, label: 'Sedentary' },
-  { value: 1.375, label: 'Light (1–3×)' },
-  { value: 1.55, label: 'Moderate (3–5×)' },
-  { value: 1.725, label: 'High (6–7×)' },
-];
-
-const goalMeta: Record<Goal, { label: string; factor: number; p: number; f: number }> = {
-  cut: { label: 'Lose Fat', factor: 0.8, p: 2.2, f: 0.9 },
-  maintain: { label: 'Maintain', factor: 1, p: 2.0, f: 1.0 },
-  gain: { label: 'Build Muscle', factor: 1.12, p: 2.0, f: 1.0 },
+type Result = {
+  maintenance: number;
+  target: number;
+  proteinMin: number;
+  proteinMax: number;
 };
 
-export default function MacroCalculator() {
-  const [sex, setSex] = useState<Sex>('male');
-  const [age, setAge] = useState(28);
-  const [height, setHeight] = useState(178); // cm
-  const [weight, setWeight] = useState(80); // kg
-  const [activity, setActivity] = useState<Activity>(1.55);
-  const [goal, setGoal] = useState<Goal>('cut');
+const activityMultipliers = {
+  sedentary: 1.2,
+  light: 1.375,
+  moderate: 1.55,
+  high: 1.725,
+} as const;
 
-  const result = useMemo(() => {
-    // Mifflin-St Jeor
+type Activity = keyof typeof activityMultipliers;
+type Goal = 'lose' | 'maintain' | 'gain';
+
+function roundTo(value: number, nearest: number) {
+  return Math.round(value / nearest) * nearest;
+}
+
+export default function MacroCalculator({ locale }: { locale: Locale }) {
+  const [sex, setSex] = useState<'male' | 'female'>('male');
+  const [age, setAge] = useState('30');
+  const [height, setHeight] = useState('175');
+  const [weight, setWeight] = useState('75');
+  const [activity, setActivity] = useState<Activity>('moderate');
+  const [goal, setGoal] = useState<Goal>('maintain');
+  const [result, setResult] = useState<Result | null>(null);
+  const [error, setError] = useState('');
+
+  const numberFormat = new Intl.NumberFormat(locale === 'ar' ? 'ar-MA' : locale);
+
+  function calculate(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const ageValue = Number(age);
+    const heightValue = Number(height);
+    const weightValue = Number(weight);
+
+    if (
+      !Number.isFinite(ageValue) ||
+      !Number.isFinite(heightValue) ||
+      !Number.isFinite(weightValue) ||
+      ageValue < 18 ||
+      ageValue > 80 ||
+      heightValue < 140 ||
+      heightValue > 220 ||
+      weightValue < 40 ||
+      weightValue > 250
+    ) {
+      setError(
+        locale === 'fr'
+          ? 'Vérifiez les valeurs : âge 18–80, taille 140–220 cm, poids 40–250 kg.'
+          : locale === 'ar'
+            ? 'تحقق من القيم: العمر 18–80، الطول 140–220 سم، الوزن 40–250 كغ.'
+            : 'Check the values: age 18–80, height 140–220 cm, weight 40–250 kg.',
+      );
+      setResult(null);
+      return;
+    }
+
+    setError('');
     const bmr =
-      10 * weight + 6.25 * height - 5 * age + (sex === 'male' ? 5 : -161);
-    const tdee = bmr * activity;
-    const meta = goalMeta[goal];
-    const calories = Math.round((tdee * meta.factor) / 10) * 10;
-    const protein = Math.round(weight * meta.p);
-    const fat = Math.round(weight * meta.f);
-    const carbs = Math.max(0, Math.round((calories - (protein * 4 + fat * 9)) / 4));
-    return { calories, protein, fat, carbs };
-  }, [sex, age, height, weight, activity, goal]);
-
-  const fieldCls =
-    'w-full rounded-md border border-white/10 bg-ink-800 px-4 py-3 font-sans text-bone outline-none transition-colors focus:border-gold/60';
+      10 * weightValue + 6.25 * heightValue - 5 * ageValue + (sex === 'male' ? 5 : -161);
+    const maintenance = bmr * activityMultipliers[activity];
+    const target = maintenance * (goal === 'lose' ? 0.85 : goal === 'gain' ? 1.1 : 1);
+    setResult({
+      maintenance: roundTo(maintenance, 10),
+      target: roundTo(target, 10),
+      proteinMin: roundTo(weightValue * 1.6, 5),
+      proteinMax: roundTo(weightValue * 2.2, 5),
+    });
+    track('calculator_use', { goal, activity });
+  }
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-      {/* Inputs */}
-      <div className="card p-6 sm:p-8">
-        <div className="grid gap-5 sm:grid-cols-2">
-          <div className="sm:col-span-2">
-            <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-dim">Sex</span>
-            <div className="grid grid-cols-2 gap-2">
-              {(['male', 'female'] as Sex[]).map((s) => (
-                <button
-                  key={s}
-                  type="button"
-                  onClick={() => setSex(s)}
-                  className={`rounded-md border py-3 text-sm capitalize transition-colors ${
-                    sex === s
-                      ? 'border-gold/60 bg-gold/10 text-gold'
-                      : 'border-white/10 text-muted hover:text-bone'
-                  }`}
-                >
-                  {s}
-                </button>
-              ))}
-            </div>
-          </div>
+    <div className="panel-raised p-6 sm:p-8">
+      <h3 className="font-display text-2xl text-bone">{calculator.title[locale]}</h3>
+      <p className="mt-2 text-sm leading-relaxed text-stone-muted">{calculator.intro[locale]}</p>
 
-          <label className="block">
-            <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-dim">Age</span>
+      <form onSubmit={calculate} className="mt-6">
+        <div className="form-grid">
+          <div className="field">
+            <label className="label" htmlFor="calc-sex">
+              {calculator.sex[locale]}
+            </label>
+            <select
+              id="calc-sex"
+              className="select"
+              value={sex}
+              onChange={(event) => setSex(event.target.value as 'male' | 'female')}
+            >
+              <option value="male">{calculator.male[locale]}</option>
+              <option value="female">{calculator.female[locale]}</option>
+            </select>
+          </div>
+          <div className="field">
+            <label className="label" htmlFor="calc-age">
+              {calculator.age[locale]}
+            </label>
             <input
+              id="calc-age"
               type="number"
+              inputMode="numeric"
+              min={18}
+              max={80}
+              className="input"
               value={age}
-              min={14}
-              max={90}
-              onChange={(e) => setAge(+e.target.value)}
-              className={fieldCls}
+              onChange={(event) => setAge(event.target.value)}
+              required
             />
-          </label>
-          <label className="block">
-            <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-dim">Height (cm)</span>
+          </div>
+          <div className="field">
+            <label className="label" htmlFor="calc-height">
+              {calculator.height[locale]}
+            </label>
             <input
+              id="calc-height"
               type="number"
+              inputMode="decimal"
+              min={140}
+              max={220}
+              className="input"
               value={height}
-              min={120}
-              max={230}
-              onChange={(e) => setHeight(+e.target.value)}
-              className={fieldCls}
+              onChange={(event) => setHeight(event.target.value)}
+              required
             />
-          </label>
-          <label className="block sm:col-span-2">
-            <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-dim">Weight (kg)</span>
+          </div>
+          <div className="field">
+            <label className="label" htmlFor="calc-weight">
+              {calculator.weight[locale]}
+            </label>
             <input
+              id="calc-weight"
               type="number"
-              value={weight}
-              min={35}
+              inputMode="decimal"
+              min={40}
               max={250}
-              onChange={(e) => setWeight(+e.target.value)}
-              className={fieldCls}
+              className="input"
+              value={weight}
+              onChange={(event) => setWeight(event.target.value)}
+              required
             />
-          </label>
-
-          <div className="sm:col-span-2">
-            <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-dim">Activity</span>
-            <div className="grid grid-cols-2 gap-2">
-              {activityLabels.map((a) => (
-                <button
-                  key={a.value}
-                  type="button"
-                  onClick={() => setActivity(a.value)}
-                  className={`rounded-md border py-2.5 text-xs transition-colors ${
-                    activity === a.value
-                      ? 'border-gold/60 bg-gold/10 text-gold'
-                      : 'border-white/10 text-muted hover:text-bone'
-                  }`}
-                >
-                  {a.label}
-                </button>
-              ))}
-            </div>
           </div>
-
-          <div className="sm:col-span-2">
-            <span className="mb-2 block text-xs uppercase tracking-[0.18em] text-dim">Goal</span>
-            <div className="grid grid-cols-3 gap-2">
-              {(Object.keys(goalMeta) as Goal[]).map((g) => (
-                <button
-                  key={g}
-                  type="button"
-                  onClick={() => setGoal(g)}
-                  className={`rounded-md border py-2.5 text-xs transition-colors ${
-                    goal === g
-                      ? 'border-gold/60 bg-gold/10 text-gold'
-                      : 'border-white/10 text-muted hover:text-bone'
-                  }`}
-                >
-                  {goalMeta[g].label}
-                </button>
-              ))}
-            </div>
+          <div className="field">
+            <label className="label" htmlFor="calc-activity">
+              {calculator.activity[locale]}
+            </label>
+            <select
+              id="calc-activity"
+              className="select"
+              value={activity}
+              onChange={(event) => setActivity(event.target.value as Activity)}
+            >
+              <option value="sedentary">{calculator.activityLevels.sedentary[locale]}</option>
+              <option value="light">{calculator.activityLevels.light[locale]}</option>
+              <option value="moderate">{calculator.activityLevels.moderate[locale]}</option>
+              <option value="high">{calculator.activityLevels.high[locale]}</option>
+            </select>
+          </div>
+          <div className="field">
+            <label className="label" htmlFor="calc-goal">
+              {calculator.goal[locale]}
+            </label>
+            <select
+              id="calc-goal"
+              className="select"
+              value={goal}
+              onChange={(event) => setGoal(event.target.value as Goal)}
+            >
+              <option value="lose">{calculator.goals.lose[locale]}</option>
+              <option value="maintain">{calculator.goals.maintain[locale]}</option>
+              <option value="gain">{calculator.goals.gain[locale]}</option>
+            </select>
           </div>
         </div>
-      </div>
 
-      {/* Result */}
-      <div className="card flex flex-col justify-between p-6 sm:p-8">
-        <div>
-          <p className="eyebrow">Your Daily Target</p>
-          <div className="mt-5 flex items-end gap-2">
-            <span className="font-display text-6xl text-gold tnum">
-              {result.calories.toLocaleString()}
-            </span>
-            <span className="mb-2 text-sm text-muted">kcal / day</span>
-          </div>
+        <button type="submit" className="btn btn-outline mt-5 w-full sm:w-auto">
+          {calculator.calculate[locale]}
+          <Arrow width={15} height={15} />
+        </button>
+      </form>
 
-          <div className="mt-8 space-y-4">
-            {[
-              { label: 'Protein', value: `${result.protein} g`, pct: (result.protein * 4) / result.calories },
-              { label: 'Carbs', value: `${result.carbs} g`, pct: (result.carbs * 4) / result.calories },
-              { label: 'Fat', value: `${result.fat} g`, pct: (result.fat * 9) / result.calories },
-            ].map((m) => (
-              <div key={m.label}>
-                <div className="mb-1.5 flex items-center justify-between text-sm">
-                  <span className="text-muted">{m.label}</span>
-                  <span className="font-medium text-bone tnum">{m.value}</span>
-                </div>
-                <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/8">
-                  <div
-                    className="h-full rounded-full bg-gradient-to-r from-gold-deep to-gold-soft transition-all duration-500"
-                    style={{ width: `${Math.min(100, Math.round(m.pct * 100))}%` }}
-                  />
-                </div>
+      {error && (
+        <p role="alert" className="field-error mt-5">
+          {error}
+        </p>
+      )}
+
+      <div aria-live="polite" className="mt-6">
+        {result && (
+          <div className="border-t border-white/10 pt-6">
+            <h4 className="text-[0.68rem] uppercase tracking-[0.18em] text-dim">
+              {calculator.resultsTitle[locale]}
+            </h4>
+            <div className="mt-4 grid gap-4 sm:grid-cols-3">
+              <div className="panel p-4">
+                <p className="text-xs text-dim">{calculator.maintenance[locale]}</p>
+                <p className="tnum mt-1 font-display text-2xl text-bone">
+                  {numberFormat.format(result.maintenance)}
+                </p>
+                <p className="mt-1 text-[0.65rem] uppercase tracking-[0.12em] text-dim">
+                  {calculator.kcal[locale]}
+                </p>
               </div>
-            ))}
+              <div className="panel border-accent/40 p-4">
+                <p className="text-xs text-dim">{calculator.target[locale]}</p>
+                <p className="tnum mt-1 font-display text-2xl text-accent-soft">
+                  {numberFormat.format(result.target)}
+                </p>
+                <p className="mt-1 text-[0.65rem] uppercase tracking-[0.12em] text-dim">
+                  {calculator.kcal[locale]}
+                </p>
+              </div>
+              <div className="panel p-4">
+                <p className="text-xs text-dim">{calculator.protein[locale]}</p>
+                <p className="tnum mt-1 font-display text-2xl text-bone">
+                  {numberFormat.format(result.proteinMin)}–{numberFormat.format(result.proteinMax)}
+                </p>
+                <p className="mt-1 text-[0.65rem] uppercase tracking-[0.12em] text-dim">
+                  {calculator.proteinUnit[locale]}
+                </p>
+              </div>
+            </div>
+            <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <p className="max-w-md text-xs leading-relaxed text-dim">
+                {calculator.cta[locale]}
+              </p>
+              <Link href={localePath(locale, '/apply')} className="btn btn-gold btn-sm shrink-0">
+                {calculator.ctaButton[locale]}
+                <Arrow width={14} height={14} />
+              </Link>
+            </div>
           </div>
-        </div>
-
-        <div className="mt-8 border-t border-white/10 pt-6">
-          <p className="text-xs leading-relaxed text-dim">
-            An estimate based on the Mifflin-St Jeor formula. Your real plan is calibrated to your
-            body, training and lifestyle.
-          </p>
-          <Link href="/apply" className="btn btn-gold mt-4 w-full text-[0.72rem]">
-            Get My Real Plan
-            <Arrow width={15} height={15} />
-          </Link>
-        </div>
+        )}
       </div>
+
+      <p className="mt-6 border-t border-white/10 pt-4 text-xs leading-relaxed text-dim">
+        {calculator.disclaimer[locale]}
+      </p>
     </div>
   );
 }

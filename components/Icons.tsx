@@ -11,17 +11,31 @@ const base = {
   strokeWidth: 1.6,
   strokeLinecap: 'round' as const,
   strokeLinejoin: 'round' as const,
+  'aria-hidden': true,
+  focusable: false,
 };
 
 export const Arrow = (p: IconProps) => (
-  <svg {...base} {...p}>
+  <svg {...base} {...p} className={p.className ?? 'arrow-icon'}>
     <path d="M5 12h14M13 6l6 6-6 6" />
+  </svg>
+);
+
+export const ArrowUpRight = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <path d="M7 17 17 7M8 7h9v9" />
   </svg>
 );
 
 export const Check = (p: IconProps) => (
   <svg {...base} {...p}>
     <path d="M20 6 9 17l-5-5" />
+  </svg>
+);
+
+export const X = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <path d="M6 6l12 12M18 6 6 18" />
   </svg>
 );
 
@@ -42,6 +56,13 @@ export const Chart = (p: IconProps) => (
   <svg {...base} {...p}>
     <path d="M3 3v18h18" />
     <path d="M7 14l3-3 3 3 5-6" />
+  </svg>
+);
+
+export const Compass = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="m16 8-2.5 5.5L8 16l2.5-5.5L16 8Z" />
   </svg>
 );
 
@@ -98,9 +119,45 @@ export const Shield = (p: IconProps) => (
   </svg>
 );
 
+export const Lock = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <rect x="4" y="10" width="16" height="11" rx="2" />
+    <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+  </svg>
+);
+
 export const Spark = (p: IconProps) => (
   <svg {...base} {...p}>
     <path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18" />
+  </svg>
+);
+
+export const Languages = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <path d="M4 5h8M8 3v2c0 4-2 7-5 8M6 9c1 2.5 3 4.5 6 5" />
+    <path d="m13 21 4-10 4 10M14.5 17h5" />
+  </svg>
+);
+
+export const User = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <circle cx="12" cy="8" r="4" />
+    <path d="M4 21c0-4 3.6-7 8-7s8 3 8 7" />
+  </svg>
+);
+
+export const Calendar = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <rect x="3" y="5" width="18" height="16" rx="2" />
+    <path d="M8 3v4M16 3v4M3 10h18" />
+  </svg>
+);
+
+export const Wallet = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <path d="M3 7a2 2 0 0 1 2-2h13v4" />
+    <rect x="3" y="7" width="18" height="13" rx="2" />
+    <path d="M16 13h3" />
   </svg>
 );
 
@@ -144,9 +201,19 @@ export const Close = (p: IconProps) => (
   </svg>
 );
 
+export const Cookie = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <path d="M21 12a9 9 0 1 1-9-9c0 2 1 3 3 3s3 1 3 3 1 3 3 3Z" />
+    <circle cx="8.5" cy="9.5" r="0.8" fill="currentColor" stroke="none" />
+    <circle cx="10.5" cy="15" r="0.8" fill="currentColor" stroke="none" />
+    <circle cx="15.5" cy="15.5" r="0.8" fill="currentColor" stroke="none" />
+  </svg>
+);
+
 export const iconMap = {
   dumbbell: Dumbbell,
   leaf: Leaf,
   chart: Chart,
+  compass: Compass,
   chat: Chat,
 } as const;

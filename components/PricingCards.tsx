@@ -1,71 +1,87 @@
-import Link from 'next/link';
-import { plans } from '../lib/content';
-import { Check, Arrow } from './Icons';
-import { StaggerItem } from './Reveal';
+'use client';
 
-export default function PricingCards() {
-  const ordered = [plans[0], plans[1], plans[2]];
+import Link from 'next/link';
+import type { Locale } from '../lib/content/types';
+import { plans } from '../lib/content/home';
+import { ui } from '../lib/content/common';
+import { localePath } from '../lib/routes';
+import { track } from '../lib/analytics';
+import { Arrow, Check, X } from './Icons';
+
+export default function PricingCards({
+  locale,
+  compact = false,
+}: {
+  locale: Locale;
+  compact?: boolean;
+}) {
+  const featuredLabel =
+    locale === 'fr' ? 'Accès rapproché' : locale === 'ar' ? 'وصول أقرب' : 'Closer access';
+  const excludesLabel =
+    locale === 'fr' ? 'Non inclus' : locale === 'ar' ? 'غير مشمول' : 'Not included';
 
   return (
-    <div className="grid items-center gap-6 lg:grid-cols-3">
-      {ordered.map((plan) => {
-        const featured = plan.featured;
-        return (
-          <StaggerItem key={plan.id}>
-            <div
-              id={plan.id}
-              className={`relative flex h-full flex-col rounded-lg border p-7 transition-all duration-500 sm:p-8 ${
-                featured
-                  ? 'border-gold/40 bg-gradient-to-b from-gold/[0.07] to-transparent shadow-[0_30px_80px_-40px_rgba(225,29,42,0.5)] lg:scale-[1.04]'
-                  : 'border-white/10 bg-white/[0.02] hover:border-white/20'
-              }`}
-            >
-              {featured && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-gold-soft to-gold-deep px-4 py-1 font-sans text-[0.6rem] uppercase tracking-[0.2em] text-white">
-                  Most Popular
-                </span>
-              )}
+    <div className="grid gap-5 lg:grid-cols-3">
+      {plans.map((plan) => (
+        <article
+          key={plan.id}
+          id={plan.id}
+          className={`plan ${plan.featured ? 'plan-featured' : ''}`.trim()}
+          aria-labelledby={`plan-${plan.id}-name`}
+        >
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <h3
+                id={`plan-${plan.id}-name`}
+                className="font-display text-2xl text-bone sm:text-[1.7rem]"
+              >
+                {plan.name[locale]}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-stone-muted">{plan.tagline[locale]}</p>
+            </div>
+            {plan.featured && <span className="badge shrink-0">{featuredLabel}</span>}
+          </div>
 
-              <div>
-                <h3 className="font-display text-2xl text-bone">{plan.name}</h3>
-                <p className="mt-2 min-h-[2.5rem] text-sm leading-relaxed text-muted">
-                  {plan.tagline}
-                </p>
-              </div>
+          <div className="mt-7 flex items-end gap-2">
+            <span className="tnum font-display text-5xl leading-none text-bone">${plan.price}</span>
+            <span className="pb-1 text-sm text-dim">
+              {ui.usd[locale]} · {plan.cadence[locale]}
+            </span>
+          </div>
 
-              <div className="mt-6 flex items-end gap-1">
-                <span className={`font-display text-5xl ${featured ? 'text-gold' : 'text-bone'}`}>
-                  {plan.price}
-                </span>
-                <span className="mb-2 text-sm text-dim">{plan.period}</span>
-              </div>
+          <ul className="mt-7 flex-1 space-y-3">
+            {plan.includes[locale].slice(0, compact ? 4 : 8).map((item) => (
+              <li key={item} className="flex items-start gap-2.5 text-sm leading-relaxed text-stone-muted">
+                <Check width={16} height={16} className="mt-0.5 shrink-0 text-accent-soft" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
 
-              <div className="my-7 hairline" />
-
-              <ul className="flex-1 space-y-3.5">
-                {plan.features.map((f) => (
-                  <li key={f} className="flex items-start gap-3 text-sm text-muted">
-                    <Check
-                      width={18}
-                      height={18}
-                      className={`mt-0.5 flex-none ${featured ? 'text-gold' : 'text-gold/70'}`}
-                    />
-                    <span>{f}</span>
+          {!compact && (
+            <div className="mt-6 border-t border-white/10 pt-5">
+              <p className="text-[0.68rem] uppercase tracking-[0.18em] text-dim">{excludesLabel}</p>
+              <ul className="mt-3 space-y-2">
+                {plan.excludes[locale].map((item) => (
+                  <li key={item} className="flex items-start gap-2 text-xs leading-relaxed text-dim">
+                    <X width={13} height={13} className="mt-0.5 shrink-0" />
+                    <span>{item}</span>
                   </li>
                 ))}
               </ul>
-
-              <Link
-                href="/apply"
-                className={`btn mt-8 w-full ${featured ? 'btn-gold' : 'btn-outline'}`}
-              >
-                {plan.cta}
-                <Arrow width={15} height={15} />
-              </Link>
             </div>
-          </StaggerItem>
-        );
-      })}
+          )}
+
+          <Link
+            href={`${localePath(locale, '/apply')}?plan=${plan.id}`}
+            onClick={() => track('plan_select', { plan: plan.id, price: plan.price, currency: 'USD' })}
+            className={`btn mt-7 w-full ${plan.featured ? 'btn-gold' : 'btn-outline'}`}
+          >
+            {plan.cta[locale]}
+            <Arrow width={15} height={15} />
+          </Link>
+        </article>
+      ))}
     </div>
   );
 }
