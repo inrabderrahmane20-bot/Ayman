@@ -124,6 +124,7 @@ These items are **not** quietly marked done. They require external evidence.
 | Final canonical domain | Owner has not confirmed a production domain | Confirm domain; set `NEXT_PUBLIC_SITE_URL`; redeploy | Coach |
 | Durable rate limiting | In-memory limiter is per serverless instance | Add Vercel Firewall, Upstash/Redis or edge limiter | Developer |
 | Production deployment of this rebuild | Committed as `65bfad7`; Vercel CLI is logged out and no project link exists locally | Log in to Vercel, link the project, deploy, rerun checks | Developer + Coach |
+| Next.js major upgrade | 14.2.35 has unfixed upstream advisories; the offered fix is Next 16.4.3/React 19 | Plan and test the breaking migration; rerun typecheck, build, checks and Lighthouse | Developer |
 | Legal review of privacy/terms/cookies | No lawyer or entity details supplied | Local adviser review | Coach |
 
 ---
