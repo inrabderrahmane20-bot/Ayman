@@ -77,7 +77,7 @@ export default function Navbar({ locale }: { locale: Locale }) {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        scrolled || open ? 'glass' : 'border-b border-transparent bg-gradient-to-b from-ink/85 to-transparent'
+        scrolled || open ? 'bg-ink/95 backdrop-blur-xl border-b border-white/10' : 'border-b border-transparent bg-gradient-to-b from-ink/90 to-ink/70 backdrop-blur-md'
       }`}
     >
       <nav className="container-luxe flex h-[72px] items-center justify-between gap-4" aria-label={nav.primary[locale]}>
@@ -133,23 +133,29 @@ export default function Navbar({ locale }: { locale: Locale }) {
           aria-label={open ? nav.close[locale] : nav.menu[locale]}
           aria-expanded={open}
           aria-controls="mobile-navigation"
-          onClick={() => setOpen((value) => !value)}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setOpen((value) => !value);
+          }}
           className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-bone transition-colors hover:border-white/40 lg:hidden"
         >
           {open ? <Close width={20} height={20} /> : <Menu width={20} height={20} />}
         </button>
       </nav>
 
-      {open && (
-        <div
-          id="mobile-navigation"
-          ref={panelRef}
-          role="dialog"
-          aria-modal="true"
-          aria-label={nav.primary[locale]}
-          className="fixed inset-x-0 bottom-0 top-[72px] z-40 overflow-y-auto border-t border-white/10 bg-ink/98 backdrop-blur-xl lg:hidden"
-        >
-          <div className="container-luxe flex min-h-full flex-col py-7">
+      <div
+        id="mobile-navigation"
+        ref={panelRef}
+        role="dialog"
+        aria-modal={open}
+        aria-hidden={!open}
+        aria-label={nav.primary[locale]}
+        data-nav-mobile
+        className={`fixed inset-x-0 bottom-0 top-[72px] z-40 overflow-y-auto border-t border-white/10 bg-ink/98 backdrop-blur-xl lg:hidden`}
+        style={{ display: open ? 'block' : 'none', pointerEvents: open ? 'auto' : 'none', height: open ? 'calc(100dvh - 72px)' : '0', minHeight: open ? 'calc(100dvh - 72px)' : '0' }}
+      >
+          <div className="container-luxe flex min-h-full flex-col py-7" style={{ minHeight: 'calc(100vh - 72px)' }}>
             <ul className="flex flex-col">
               {mainNav.map((item) => {
                 const active = isActive(item.path);
@@ -194,7 +200,6 @@ export default function Navbar({ locale }: { locale: Locale }) {
             </div>
           </div>
         </div>
-      )}
     </header>
   );
 }
