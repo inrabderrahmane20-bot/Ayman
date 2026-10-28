@@ -12,14 +12,14 @@ export const SITE_URL = (
 
 export const SITE = {
   url: SITE_URL,
-  name: 'AYMAN Coaching',
+  name: 'Coach Ayman',
   coachName: 'Mohamed Ayman Yakhmim',
   email: 'aymanyakhmim1@gmail.com',
   phone: '+212707072662',
   phoneDisplay: '+212 707 072 662',
   whatsapp: 'https://wa.me/212707072662',
   country: 'Morocco',
-  areaServed: 'Worldwide (online)',
+  areaServed: 'Morocco and international by arrangement',
   gaId: process.env.NEXT_PUBLIC_GA_ID ?? '',
   siteVerification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ?? '',
   /**

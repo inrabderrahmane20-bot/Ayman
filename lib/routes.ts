@@ -22,6 +22,7 @@ export function localeFromPath(pathname: string): Locale | null {
 
 export const mainNav = [
   { path: '/coaching', key: 'coaching' },
+  { path: '/private-services', key: 'privateServices' },
   { path: '/results', key: 'results' },
   { path: '/about', key: 'about' },
   { path: '/pricing', key: 'pricing' },
@@ -36,6 +37,11 @@ export const indexablePaths = [
   '',
   '/coaching',
   ...servicePaths,
+  '/private-services',
+  '/private-services/personal-protection',
+  '/private-services/private-accompaniment',
+  '/private-services/how-it-works',
+  '/private-services/request',
   '/results',
   '/about',
   '/pricing',
@@ -61,5 +67,10 @@ export const legacyRedirects: Record<string, string> = {
   '/terms': '/terms',
   '/faq': '/faq',
   '/personal-protection': '/personal-protection',
+  '/private-services': '/private-services',
+  '/private-services/personal-protection': '/private-services/personal-protection',
+  '/private-services/private-accompaniment': '/private-services/private-accompaniment',
+  '/private-services/how-it-works': '/private-services/how-it-works',
+  '/private-services/request': '/private-services/request',
   '/cookies': '/cookies',
 };

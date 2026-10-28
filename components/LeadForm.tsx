@@ -9,7 +9,7 @@ import { localePath } from '../lib/routes';
 import { track } from '../lib/analytics';
 import { Arrow, Check, WhatsApp, Mail } from './Icons';
 
-type Variant = 'application' | 'contact' | 'protection';
+type Variant = 'application' | 'contact' | 'protection' | 'private';
 
 type FormState = {
   name: string;
@@ -42,13 +42,28 @@ export default function LeadForm({
   locale,
   variant = 'application',
   initialPlan = '',
+  initialService = '',
 }: {
   locale: Locale;
   variant?: Variant;
   initialPlan?: string;
+  initialService?: string;
 }) {
   const isApplication = variant === 'application';
-  const [form, setForm] = useState<FormState>({
+  const isPrivate = variant === 'private';
+  const [form, setForm] = useState<FormState & {
+    serviceType?: string;
+    preferredContact?: string;
+    contactDetails?: string;
+    occasion?: string;
+    destination?: string;
+    startDate?: string;
+    endDate?: string;
+    duration?: string;
+    preferredTime?: string;
+    preferredLanguage?: string;
+    additionalRequirements?: string;
+  }>({
     name: '',
     email: '',
     phone: '',
@@ -62,6 +77,17 @@ export default function LeadForm({
     message: '',
     consent: false,
     website: '',
+    serviceType: initialService || '',
+    preferredContact: '',
+    contactDetails: '',
+    occasion: '',
+    destination: '',
+    startDate: '',
+    endDate: '',
+    duration: '',
+    preferredTime: '',
+    preferredLanguage: locale,
+    additionalRequirements: '',
   });
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<'idle' | 'submitting' | 'delivered' | 'fallback' | 'error'>(
@@ -116,8 +142,6 @@ export default function LeadForm({
     if (!emailPattern.test(form.email.trim()) || form.email.length > 254) {
       next.email = forms.invalidEmail[locale];
     }
-    if (form.message.trim().length < 20) next.message = forms.invalidMessage[locale];
-    if (form.message.length > 4000) next.message = forms.invalidMessage[locale];
     if (!form.consent) next.consent = forms.invalidConsent[locale];
     if (isApplication) {
       if (form.country.trim().length < 2) next.country = forms.invalidRequired[locale];
@@ -126,6 +150,20 @@ export default function LeadForm({
       if (!form.days) next.days = forms.invalidRequired[locale];
       if (!form.equipment) next.equipment = forms.invalidRequired[locale];
       if (!form.language) next.language = forms.invalidRequired[locale];
+      if (form.message.trim().length < 20) next.message = forms.invalidMessage[locale];
+      if (form.message.length > 4000) next.message = forms.invalidMessage[locale];
+    } else if (isPrivate) {
+      if (!(form as any).serviceType) next.name = forms.invalidRequired[locale];
+      if (!(form as any).preferredContact) next.name = forms.invalidRequired[locale];
+      if (!(form as any).contactDetails?.trim()) next.email = forms.invalidRequired[locale];
+      if (!(form as any).occasion?.trim()) next.message = forms.invalidRequired[locale];
+      if (!(form as any).destination?.trim()) next.country = forms.invalidRequired[locale];
+      if (!(form as any).startDate) next.name = forms.invalidRequired[locale];
+      if (!(form as any).duration?.trim()) next.name = forms.invalidRequired[locale];
+      if (!(form as any).preferredLanguage) next.language = forms.invalidRequired[locale];
+    } else {
+      if (form.message.trim().length < 20) next.message = forms.invalidMessage[locale];
+      if (form.message.length > 4000) next.message = forms.invalidMessage[locale];
     }
     return next;
   }
@@ -173,6 +211,7 @@ export default function LeadForm({
     }
     if (variant === 'contact') track('contact_submit', { location: 'contact_page' });
     if (variant === 'protection') track('protection_enquiry', { location: 'protection_page' });
+    if (variant === 'private') track('protection_enquiry', { location: 'private_services_page' });
 
     const controller = new AbortController();
     const timeout = window.setTimeout(() => controller.abort(), 15000);
@@ -269,10 +308,10 @@ export default function LeadForm({
           <Check width={20} height={20} />
         </span>
         <h2 id="lead-delivered-title" className="mt-5 font-display text-2xl text-bone">
-          {forms.successDeliveredTitle[locale]}
+          {isPrivate ? forms.privateEnquiryTitle?.[locale] || forms.successDeliveredTitle[locale] : forms.successDeliveredTitle[locale]}
         </h2>
         <p className="mt-3 max-w-xl text-sm leading-relaxed text-stone-muted">
-          {forms.successDelivered[locale]}
+          {isPrivate ? forms.privateEnquiryBody?.[locale] || forms.successDelivered[locale] : forms.successDelivered[locale]}
         </p>
         <Link href={localePath(locale)} className="btn btn-outline btn-sm mt-6">
           {ui.home[locale]}

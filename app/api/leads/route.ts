@@ -13,7 +13,7 @@ export const dynamic = 'force-dynamic';
  * the same details themselves. It never pretends a message was received.
  */
 
-type FormType = 'application' | 'contact' | 'protection';
+type FormType = 'application' | 'contact' | 'protection' | 'private';
 
 type Lead = {
   formType: FormType;
@@ -29,6 +29,17 @@ type Lead = {
   plan: string;
   message: string;
   source: string;
+  serviceType?: string;
+  preferredContact?: string;
+  contactDetails?: string;
+  occasion?: string;
+  destination?: string;
+  startDate?: string;
+  endDate?: string;
+  duration?: string;
+  preferredTime?: string;
+  preferredLanguage?: string;
+  additionalRequirements?: string;
 };
 
 const MAX_BODY = 32_000;
@@ -119,6 +130,12 @@ function summaryOf(lead: Lead): string {
     lead.formType === 'application' ? ['Equipment', lead.equipment] : null,
     lead.formType === 'application' ? ['Coaching language', lead.language] : null,
     lead.formType === 'application' && lead.plan ? ['Plan', lead.plan] : null,
+    lead.formType === 'private' && lead.serviceType ? ['Service', lead.serviceType] : null,
+    lead.formType === 'private' && lead.destination ? ['Destination/City', lead.destination] : null,
+    lead.formType === 'private' && lead.startDate ? ['Start date', lead.startDate] : null,
+    lead.formType === 'private' && lead.endDate ? ['End date', lead.endDate] : null,
+    lead.formType === 'private' && lead.duration ? ['Duration', lead.duration] : null,
+    lead.formType === 'private' && lead.preferredContact ? ['Preferred contact', `${lead.preferredContact}: ${lead.contactDetails || ''}`] : null,
     ['Form', lead.formType],
     ['Source', lead.source],
   ].filter((row): row is string[] => Boolean(row));
@@ -128,7 +145,7 @@ function summaryOf(lead: Lead): string {
 
 function fallbackFor(lead: Lead) {
   const summary = summaryOf(lead);
-  const subject = `Coaching enquiry — ${lead.name}`;
+  const subject = lead.formType === 'private' ? `Private service enquiry — ${lead.name}` : `Coaching enquiry — ${lead.name}`;
   return {
     whatsapp: whatsappLink(
       `Hello Coach Ayman,\n\n${summary}\n\n(Sent from the ${lead.formType} form.)`,
@@ -140,7 +157,7 @@ function fallbackFor(lead: Lead) {
 
 function validate(payload: Record<string, unknown>): { lead?: Lead; code?: string } {
   const formType = text(payload.formType, 20) as FormType;
-  if (!['application', 'contact', 'protection'].includes(formType)) {
+  if (!['application', 'contact', 'protection', 'private'].includes(formType)) {
     return { code: 'validation' };
   }
   if (formType === 'protection' && process.env.NEXT_PUBLIC_PROTECTION_LIVE !== 'true') {
@@ -177,6 +194,54 @@ function validate(payload: Record<string, unknown>): { lead?: Lead; code?: strin
     if (plan && !['nutrition', 'training', 'vip', 'unsure'].includes(plan)) {
       return { code: 'validation' };
     }
+  }
+
+  if (formType === 'private') {
+    const serviceType = text(payload.serviceType, 40);
+    const preferredContact = text(payload.preferredContact, 40);
+    const contactDetails = text(payload.contactDetails, 120);
+    const occasion = text(payload.occasion, 200);
+    const destination = text(payload.destination, 120);
+    const startDate = text(payload.startDate, 40);
+    const duration = text(payload.duration, 80);
+    const preferredLanguage = text(payload.preferredLanguage, 10);
+    if (!serviceType || !preferredContact || !contactDetails || !occasion || !destination || !startDate || !duration || !preferredLanguage) {
+      return { code: 'validation' };
+    }
+    if (!['protection', 'accompaniment', 'both'].includes(serviceType)) return { code: 'validation' };
+    if (!['email', 'phone', 'whatsapp'].includes(preferredContact)) return { code: 'validation' };
+    if (!['en', 'fr', 'ar'].includes(preferredLanguage)) return { code: 'validation' };
+    const endDate = text(payload.endDate, 40);
+    const preferredTime = text(payload.preferredTime, 40);
+    const additionalRequirements = text(payload.additionalRequirements, 2000);
+    return {
+      lead: {
+        formType,
+        name,
+        email,
+        phone,
+        country: text(payload.country, 80),
+        goal: '',
+        experience: '',
+        days: '',
+        equipment: '',
+        language: preferredLanguage,
+        plan: '',
+        message: `Service: ${serviceType}\nPreferred contact: ${preferredContact} (${contactDetails})\nOccasion/Purpose: ${occasion}\nDestination/City: ${destination}\nStart date: ${startDate}${endDate ? `\nEnd date: ${endDate}` : ''}\nDuration: ${duration}${preferredTime ? `\nPreferred time: ${preferredTime}` : ''}\nPreferred language: ${preferredLanguage}${additionalRequirements ? `\n\nAdditional requirements:\n${additionalRequirements}` : ''}`,
+        source,
+        serviceType,
+        preferredContact,
+        contactDetails,
+        occasion,
+        destination,
+        startDate,
+        endDate,
+        duration,
+        preferredTime,
+        preferredLanguage,
+        additionalRequirements,
+      },
+    };
   }
 
   return {

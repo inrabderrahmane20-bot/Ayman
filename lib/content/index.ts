@@ -7,3 +7,4 @@ export * from './pages';
 export * from './forms';
 export * from './legal';
 export * from './protection';
+export * from './private-services';

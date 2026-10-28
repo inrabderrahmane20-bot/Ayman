@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
@@ -86,12 +87,14 @@ export default function Navbar({ locale }: { locale: Locale }) {
           className="group flex min-h-11 items-center gap-3"
           onClick={() => setOpen(false)}
         >
-          <span
-            aria-hidden="true"
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-gold/45 font-display text-lg text-accent-soft transition-colors group-hover:border-accent-soft"
-          >
-            A
-          </span>
+          <Image
+            src="/Logo%20Coach%20Ayman%20sur%20fond%20noir.png"
+            alt="Coach Ayman"
+            width={36}
+            height={36}
+            className="h-9 w-9 rounded-full object-contain"
+            priority
+          />
           <span className="flex flex-col leading-none">
             <span className="font-display text-base tracking-wide text-bone">Coach Ayman</span>
             <span className="mt-1 text-[0.55rem] uppercase tracking-[0.22em] text-dim">

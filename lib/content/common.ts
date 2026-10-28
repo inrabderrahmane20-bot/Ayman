@@ -3,6 +3,7 @@ import { L } from './types';
 export const nav = {
   home: L('Home', 'Accueil', 'الرئيسية'),
   coaching: L('Coaching', 'Coaching', 'التدريب'),
+  privateServices: L('Private Services', 'Services Privés', 'خدمات خاصة'),
   results: L('Results', 'Résultats', 'النتائج'),
   about: L('About Ayman', 'À propos', 'عن أيمن'),
   pricing: L('Pricing', 'Tarifs', 'الأسعار'),
@@ -113,6 +114,7 @@ export const footer = {
   ),
   explore: L('Explore', 'Explorer', 'استكشف'),
   services: L('Coaching', 'Coaching', 'التدريب'),
+  privateServices: L('Private Services', 'Services Privés', 'خدمات خاصة'),
   legal: L('Legal', 'Informations légales', 'قانوني'),
   contact: L('Contact', 'Contact', 'اتصل'),
   privacy: L('Privacy policy', 'Politique de confidentialité', 'سياسة الخصوصية'),

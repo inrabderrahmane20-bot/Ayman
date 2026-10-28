@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import type { Locale } from '../lib/content/types';
 import { footer, nav, ui } from '../lib/content/common';
@@ -13,6 +14,7 @@ export default function Footer({ locale }: { locale: Locale }) {
   const year = new Date().getFullYear();
   const explore = [
     { path: '/coaching', label: nav.coaching[locale] },
+    { path: '/private-services', label: nav.privateServices[locale] },
     { path: '/results', label: nav.results[locale] },
     { path: '/about', label: nav.about[locale] },
     { path: '/pricing', label: nav.pricing[locale] },
@@ -29,12 +31,13 @@ export default function Footer({ locale }: { locale: Locale }) {
         <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr_1.2fr_1.2fr]">
           <div>
             <Link href={localePath(locale)} className="inline-flex min-h-11 items-center gap-3">
-              <span
-                aria-hidden="true"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/45 font-display text-lg text-accent-soft"
-              >
-                A
-              </span>
+              <Image
+                src="/Logo%20Coach%20Ayman%20sur%20fond%20noir.png"
+                alt="Coach Ayman"
+                width={40}
+                height={40}
+                className="h-10 w-10 rounded-full object-contain"
+              />
               <span className="font-display text-lg tracking-wide text-bone">Coach Ayman</span>
             </Link>
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-stone-muted">
@@ -86,6 +89,35 @@ export default function Footer({ locale }: { locale: Locale }) {
                   </Link>
                 </li>
               ))}
+            </ul>
+            <p className="mt-6 text-[0.68rem] uppercase tracking-[0.2em] text-dim">
+              {footer.privateServices[locale]}
+            </p>
+            <ul className="mt-4 space-y-2.5">
+              <li>
+                <Link
+                  href={localePath(locale, '/private-services/personal-protection')}
+                  className="text-sm text-stone-muted transition-colors hover:text-accent-soft"
+                >
+                  {locale === 'fr' ? 'Protection Personnelle' : locale === 'ar' ? 'الحماية الشخصية' : 'Personal Protection'}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={localePath(locale, '/private-services/private-accompaniment')}
+                  className="text-sm text-stone-muted transition-colors hover:text-accent-soft"
+                >
+                  {locale === 'fr' ? 'Accompagnement Privé' : locale === 'ar' ? 'مرافقة خاصة' : 'Private Accompaniment'}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={localePath(locale, '/private-services/request')}
+                  className="text-sm text-stone-muted transition-colors hover:text-accent-soft"
+                >
+                  {locale === 'fr' ? 'Faire une demande' : locale === 'ar' ? 'طلب خدمة' : 'Request a service'}
+                </Link>
+              </li>
             </ul>
           </nav>
 
